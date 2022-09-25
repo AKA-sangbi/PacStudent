@@ -9,7 +9,7 @@ public class trigger : MonoBehaviour
         if (collision.tag == "Cheery")
         {
             collision.gameObject.SetActive(false);
-            GameManager.Instance.score += 100;
+            GameManager.Instance.currentScore += 100;
         }
     }
 }
