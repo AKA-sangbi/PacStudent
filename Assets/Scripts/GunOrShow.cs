@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GunObject : MonoBehaviour
+public class GunOrShow : MonoBehaviour
 {
     public string WeaponName;
 
@@ -12,13 +12,13 @@ public class GunObject : MonoBehaviour
         {
             if (WeaponName == "Gun")
             {
-                PacStudent.Instance.IsGun = true;
+                PacStudent.Instance.gunBuffer = true;
                 gameObject.SetActive(false);
             }
 
             if (WeaponName == "Show")
             {
-                PacStudent.Instance.IsShow = true;
+                PacStudent.Instance.showBuffer = true;
                 gameObject.SetActive(false);
             }
         }

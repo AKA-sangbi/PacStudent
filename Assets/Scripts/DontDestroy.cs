@@ -34,6 +34,10 @@ public class DontDestroy : MonoBehaviour
 
     private void Update()
     {
-    GameObject.Find("Value").GetComponent<Text>().text = MaxScore.ToString();
+        if (GameObject.Find("Value") != null)
+        {
+            GameObject.Find("Value").GetComponent<Text>().text = MaxScore.ToString();
+        }
+
     }
 }
