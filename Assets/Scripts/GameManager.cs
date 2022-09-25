@@ -20,10 +20,10 @@ public class GameManager : MonoBehaviour
     public GameObject StartTimer;
 
     public GameObject pacman;
-    public GameObject goman1;
-    public GameObject goman2;
-    public GameObject goman3;
-    public GameObject goman4;
+    public Ghost ghost1;
+    public Ghost ghost2;
+    public Ghost ghost3;
+    public Ghost ghost4;
 
     public bool isSuperPacman = false;
 
@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
     public List<GameObject> pacdotGos = new List<GameObject>();
     private int pacdotNum = 0;
     private int nowEat = 0;
-    public int score = 0;
+    public int currentScore = 0;
     public Text remainText;
     public Text nowText;
     public Text scoreText;
@@ -69,7 +69,7 @@ public class GameManager : MonoBehaviour
 
     public float Starttimer;
 
-    public Timer Timer;//计时器
+    public GameTimeText Timer;//计时器
 
     public bool OnStartGame = true;
 
@@ -117,9 +117,9 @@ public class GameManager : MonoBehaviour
         }
 
         //DontDestroy dontDestroy = GameObject.Find("DontDestroy").GetComponent<DontDestroy>();
-        //if (dontDestroy.MaxScore < score)
+        //if (dontDestroy.MaxScore < currentScore)
         //{
-        //    dontDestroy.MaxScore = score;
+        //    dontDestroy.MaxScore = currentScore;
         //}
 
         if (Directionzuo)
@@ -139,7 +139,7 @@ public class GameManager : MonoBehaviour
             gamePanel.SetActive(false);
             Instantiate(winPrefab);
             StopAllCoroutines();
-            SetGameState(false);
+            ChangeState(false);
         }
         if (nowEat == pacdotNum)
         {
@@ -152,7 +152,7 @@ public class GameManager : MonoBehaviour
         {
             remainText.text = "Remain:" + (pacdotNum - nowEat);
             nowText.text = "Eaten:" + (nowEat);
-            scoreText.text = "Score:" + (score);
+            scoreText.text = currentScore.ToString();
         }
         if (IsOnEatSuperPacdot == true)
         {
@@ -175,10 +175,10 @@ public class GameManager : MonoBehaviour
         if (OnStartGame)
         {
             StartTimer.SetActive(true);
-            goman1.GetComponent<Ghost>().enabled = false;
-            goman2.GetComponent<Ghost>().enabled = false;
-            goman3.GetComponent<Ghost>().enabled = false;
-            goman4.GetComponent<Ghost>().enabled = false;
+            ghost1.enabled = false;
+            ghost2.enabled = false;
+            ghost3.enabled = false;
+            ghost4.enabled = false;
             foreach (GameObject item in NPC)
             {
                 item.GetComponent<Animator>().enabled = false;
@@ -192,10 +192,10 @@ public class GameManager : MonoBehaviour
                 {
                     item.GetComponent<Animator>().enabled = true;
                 }
-                goman1.GetComponent<Ghost>().enabled = true;
-                goman2.GetComponent<Ghost>().enabled = true;
-                goman3.GetComponent<Ghost>().enabled = true;
-                goman4.GetComponent<Ghost>().enabled = true;
+                ghost1.enabled = true;
+                ghost2.enabled = true;
+                ghost3.enabled = true;
+                ghost4.enabled = true;
                 pacman.GetComponent<PacStudent>().enabled = true;
                 Timer.enabled = true;
                 OnStartButton();
@@ -206,7 +206,7 @@ public class GameManager : MonoBehaviour
 
     public void OnStartButton()
     {
-        SetGameState(true);
+        ChangeState(true);
         Invoke("CreateSuperpacdot", 5f);
         AudioSource.PlayClipAtPoint(startClip, new Vector3(0, 0, -5));
         gamestartPanel.SetActive(false);
@@ -227,7 +227,7 @@ public class GameManager : MonoBehaviour
     public void EatDot(GameObject go)
     {
         nowEat++;
-        score += 100;
+        currentScore += 100;
         pacdotGos.Remove(go);
     }
 
@@ -235,24 +235,24 @@ public class GameManager : MonoBehaviour
     {
         isSuperPacman = true;
         IsOnEatSuperPacdot = true;
-        score += 200;
+        currentScore += 200;
         Invoke("CreateSuperpacdot", 20f);
         ChangeEnemy();
-        goman1.GetComponent<SpriteRenderer>().enabled = false;
-        goman2.GetComponent<SpriteRenderer>().enabled = false;
-        goman3.GetComponent<SpriteRenderer>().enabled = false;
-        goman4.GetComponent<SpriteRenderer>().enabled = false;
+        ghost1.GetComponent<SpriteRenderer>().enabled = false;
+        ghost2.GetComponent<SpriteRenderer>().enabled = false;
+        ghost3.GetComponent<SpriteRenderer>().enabled = false;
+        ghost4.GetComponent<SpriteRenderer>().enabled = false;
         StartCoroutine(RecoverEnemy());
     }
 
     IEnumerator RecoverEnemy()
     {
         yield return new WaitForSeconds(10f);
-        goman1.GetComponent<SpriteRenderer>().enabled = true;
-        goman2.GetComponent<SpriteRenderer>().enabled = true;
-        goman3.GetComponent<SpriteRenderer>().enabled = true;
-        goman4.GetComponent<SpriteRenderer>().enabled = true;
-        UnFreezeEnemy();
+        ghost1.GetComponent<SpriteRenderer>().enabled = true;
+        ghost2.GetComponent<SpriteRenderer>().enabled = true;
+        ghost3.GetComponent<SpriteRenderer>().enabled = true;
+        ghost4.GetComponent<SpriteRenderer>().enabled = true;
+        ShowEnemy();
         UnChangeEnemy();
         isSuperPacman = false;
     }
@@ -272,18 +272,18 @@ public class GameManager : MonoBehaviour
 
     private void ChangeEnemy()//改变敌人颜色
     {
-        goman1.GetComponent<SpriteRenderer>().color = new Color(0.1f, 0.7f, 0.7f, 0.7f);
-        goman2.GetComponent<SpriteRenderer>().color = new Color(0.7f, 0.7f, 0.7f, 0.7f);
-        goman3.GetComponent<SpriteRenderer>().color = new Color(0.7f, 0.7f, 0.7f, 0.7f);
-        goman4.GetComponent<SpriteRenderer>().color = new Color(0.7f, 0.7f, 0.7f, 0.7f);
+        ghost1.GetComponent<SpriteRenderer>().color = new Color(0.1f, 0.7f, 0.7f, 0.7f);
+        ghost2.GetComponent<SpriteRenderer>().color = new Color(0.7f, 0.7f, 0.7f, 0.7f);
+        ghost3.GetComponent<SpriteRenderer>().color = new Color(0.7f, 0.7f, 0.7f, 0.7f);
+        ghost4.GetComponent<SpriteRenderer>().color = new Color(0.7f, 0.7f, 0.7f, 0.7f);
     }
 
     private void UnChangeEnemy()//改变敌人颜色
     {
-        goman1.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
-        goman2.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
-        goman3.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
-        goman4.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
+        ghost1.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
+        ghost2.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
+        ghost3.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
+        ghost4.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
     }
 
     public void FreezeEnemy(GameObject go)
@@ -294,45 +294,44 @@ public class GameManager : MonoBehaviour
     public void OnKillEnemy(GameObject enemyObj)
     {
         enemyObj.SetActive(false);//关闭销毁敌人
-        if (goman1.activeInHierarchy == false)
+        if (ghost1.gameObject.activeInHierarchy == false)
         {
-            StartCoroutine(EnemyAwake(goman1));
+            StartCoroutine(BirthEnemy(ghost1.gameObject));
         }
-        if (goman2.activeInHierarchy == false)
+        if (ghost2.gameObject.activeInHierarchy == false)
         {
-            StartCoroutine(EnemyAwake(goman2));
+            StartCoroutine(BirthEnemy(ghost2.gameObject));
         }
-        if (goman3.activeInHierarchy == false)
+        if (ghost3.gameObject.activeInHierarchy == false)
         {
-            StartCoroutine(EnemyAwake(goman3));
+            StartCoroutine(BirthEnemy(ghost3.gameObject));
         }
-        if (goman4.activeInHierarchy == false)
+        if (ghost4.gameObject.activeInHierarchy == false)
         {
-            StartCoroutine(EnemyAwake(goman4));
+            StartCoroutine(BirthEnemy(ghost4.gameObject));
         }
     }
 
-    IEnumerator EnemyAwake(GameObject goman)
+    IEnumerator BirthEnemy(GameObject goman)
     {
         yield return new WaitForSeconds(10f);
         goman.SetActive(true);
     }
 
-    public void UnFreezeEnemy()
+    public void ShowEnemy()
     {
-        goman1.GetComponent<Ghost>().enabled = true;
-        goman2.GetComponent<Ghost>().enabled = true;
-        goman3.GetComponent<Ghost>().enabled = true;
-        goman4.GetComponent<Ghost>().enabled = true;
+        ghost1.enabled = true;
+        ghost2.enabled = true;
+        ghost3.enabled = true;
+        ghost4.enabled = true;
     }
 
-    private void SetGameState(bool state)
+    private void ChangeState(bool state)
     {
-
         pacman.GetComponent<PacStudent>().enabled = state;
-        goman1.GetComponent<Ghost>().enabled = state;
-        goman2.GetComponent<Ghost>().enabled = state;
-        goman3.GetComponent<Ghost>().enabled = state;
-        goman4.GetComponent<Ghost>().enabled = state;
+        ghost1.enabled = state;
+        ghost2.enabled = state;
+        ghost3.enabled = state;
+        ghost4.enabled = state;
     }
 }

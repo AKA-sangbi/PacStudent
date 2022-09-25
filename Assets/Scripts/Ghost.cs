@@ -21,7 +21,7 @@ public class Ghost : MonoBehaviour
         {
             GameManager.Instance.FreezeEnemy(this.gameObject);
             GameManager.Instance.OnKillEnemy(this.gameObject);
-            GameManager.Instance.score += 300;
+            GameManager.Instance.currentScore += 300;
         }
 
         if (collision.gameObject.name == "Pacman")
@@ -42,7 +42,7 @@ public class Ghost : MonoBehaviour
             {
                 GameManager.Instance.FreezeEnemy(this.gameObject);
                 GameManager.Instance.OnKillEnemy(this.gameObject);
-                GameManager.Instance.score += 300;
+                GameManager.Instance.currentScore += 300;
                 GameObject.Find("Eat").GetComponent<AudioSource>().Play();
             }
             if (GameManager.Instance.isSuperPacman == false && GameManager.Instance.HealthValue == 0)//当玩家不是超级玩家并且血量为0时

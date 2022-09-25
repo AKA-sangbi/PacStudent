@@ -3,34 +3,33 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CherryController : MonoBehaviour
+public class Cherry : MonoBehaviour
 {
     public float timer = 0f;
 
-    public GameObject Charry;
+    public GameObject cherryObj;
 
     // Start is called before the first frame update
     void Start()
     {
-        Charry.SetActive(false);
+        cherryObj.SetActive(false);
     }
 
 
-    // Update is called once per frame
     void Update()
     {
-        if(GameManager.Instance.OnStartGame==false)
+        if (GameManager.Instance.OnStartGame == false)
         {
             timer += Time.deltaTime;
             if (timer >= 10f)
             {
-                Charry.SetActive(true);
+                cherryObj.SetActive(true);
                 timer = -10f;
             }
 
-            if(timer>=0&&timer<=1f)
+            if (timer >= 0 && timer <= 1f)
             {
-                Charry.SetActive(false);
+                cherryObj.SetActive(false);
             }
         }
     }

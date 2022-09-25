@@ -10,12 +10,12 @@ public class PacStudent : MonoBehaviour
     public string playerLastInput = null;//上次输入按键
     public string _currentInput = null;//当前输入按键
     public ParticleSystem effect;
-    public bool IsGun = false;
+    public bool gunBuffer = false;
     public bool IsBullet = false;
     public GameObject BulletPerfab;
     public GameObject CurrentBullet;
 
-    public bool IsShow = false;
+    public bool showBuffer = false;
 
     public float Guntimer = 0f;
 
@@ -280,15 +280,15 @@ public class PacStudent : MonoBehaviour
             effect.Play();
         }
 
-        if (IsGun)
+        if (gunBuffer)
         {
             GameManager.Instance.HealthValue += 1;
             GameObject.Find("HealthValue").GetComponent<Text>().text = GameManager.Instance.HealthValue.ToString();
-            IsGun = false;
+            gunBuffer = false;
         }
 
 
-        if (IsShow)
+        if (showBuffer)
         {
             moveSpeed = 0.1f;
             ShowTmer += Time.deltaTime;
@@ -296,7 +296,7 @@ public class PacStudent : MonoBehaviour
             {
                 moveSpeed = 0.05f;
                 ShowTmer = 0f;
-                IsShow = false;
+                showBuffer = false;
             }
         }
     }

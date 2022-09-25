@@ -50,10 +50,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -92,6 +94,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -352,9 +355,19 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      GomanScaredAndDead_8: -3423578415846175775
+      GomanScaredAndDead_4: 7626483617160627776
+      GomanScaredAndDead_1: -1965569560544258759
+      GomanScaredAndDead_6: -420802298411792485
+      GomanScaredAndDead_3: 5712662867081307662
+      GomanScaredAndDead_2: -5623793625230857322
+      GomanScaredAndDead_7: -6502025362829516357
+      GomanScaredAndDead_9: -3201677528813614795
+      GomanScaredAndDead_0: -4379411610933997640
+      GomanScaredAndDead_5: 3377253876393314382
   spritePackingTag: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
